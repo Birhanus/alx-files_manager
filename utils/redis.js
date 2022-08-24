@@ -5,7 +5,7 @@ import { promisify } from 'util';
  * Class for performing operations with Redis service
  */
 class RedisClient {
-  constructor () {
+  constructor() {
     this.client = redis.createClient();
     this.getAsync = promisify(this.client.get).bind(this.client);
 
@@ -22,7 +22,7 @@ class RedisClient {
    * Checks if connection to Redis is Alive
    * @return {boolean} true if connection alive or false if not
    */
-  isAlive () {
+  isAlive() {
     return this.client.connected;
   }
 
@@ -31,7 +31,7 @@ class RedisClient {
    * @key {string} key to search for in redis
    * @return {string}  value of key
    */
-  async get (key) {
+  async get(key) {
     const value = await this.getAsync(key);
     return value;
   }
@@ -43,7 +43,7 @@ class RedisClient {
    * @duration {number} TTL of key
    * @return {undefined}  No return
    */
-  async set (key, value, duration) {
+  async set(key, value, duration) {
     this.client.setex(key, duration, value);
   }
 
@@ -52,7 +52,7 @@ class RedisClient {
    * @key {string} key to be deleted
    * @return {undefined}  No return
    */
-  async del (key) {
+  async del(key) {
     this.client.del(key);
   }
 }
